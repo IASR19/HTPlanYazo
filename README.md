@@ -1,77 +1,175 @@
-# Programa de Transferência de Dados Excel
+# PlanYazo - Sistema de Transferência de Dados
 
-Este programa transfere dados da planilha `Plan.xlsx` para a planilha `Yazo.xlsx`.
+Sistema gráfico para transferência de dados entre planilhas Excel, desenvolvido para gerenciar eventos e palestras.
 
-## Instalação
+## 📋 Descrição
 
-1. Certifique-se de ter Python 3.7+ instalado
-2. Instale as dependências:
+O PlanYazo é uma aplicação desktop com interface gráfica moderna que permite transferir dados da planilha `Plan.xlsx` para `Yazo.xlsx`, especificamente para gerenciar eventos como palestras, workshops e painéis.
+
+## ✨ Funcionalidades
+
+### 🎯 Transferência de Dados
+- **Palestras**: Transfere dados da aba PALESTRA
+- **Workshops**: Transfere dados da aba WORKSHOP  
+- **Painéis**: Transfere dados da aba PAINEL
+- **Apagar Dados**: Remove todos os registros da aba Palestras2k25
+
+### 🔍 Características Técnicas
+- Interface gráfica moderna e responsiva
+- Verificação automática de arquivos
+- Processamento em threads para não travar a interface
+- Log detalhado de todas as operações
+- Detecção de células com fundo verde (RGB: 0,255,0)
+- Confirmações de segurança para operações críticas
+
+## 🚀 Instalação
+
+### Pré-requisitos
+- Python 3.7 ou superior
+- Windows 10/11 (testado)
+
+### Passos de Instalação
+
+1. **Clone ou baixe o projeto**
+2. **Instale as dependências:**
 ```bash
 pip install -r requirements.txt
 ```
 
-## Como usar
-
-1. Coloque os arquivos `Plan.xlsx` e `Yazo.xlsx` na mesma pasta do programa
-2. Execute o programa:
+3. **Execute a aplicação:**
 ```bash
-python transfer_data.py
+python Front.py
 ```
 
-# Objetivo:
-Alterar o script para operar nos seguintes parâmetros:
-	- Menu Inicial:
-        - Opções de importação para Yazo:
-            1 - Palestra
-            2 - Workshop
-            3 - Painel
-            4 - Fechar
-            5 - Apagar tudo
+## 📁 Estrutura de Arquivos
 
-        Lógica (Na parte da Yazo, os registros devem ser contidos na aba "Palestras2k25", abaixo do cabeçalho): 
-            ## PARA TODAS AS OPÇÕES, CAPTAR SOMENTE LINHAS QUE ESTÃO COM TODAS CELULAS DA LINHA COM PREENCHIMENTO DE FUNDO EM VERDE
+```
+HTPlanYazo/
+├── Front.py              # Interface gráfica principal
+├── requirements.txt      # Dependências do projeto
+├── Plan.xlsx            # Planilha fonte de dados
+├── Yazo.xlsx            # Planilha de destino
+├── README.md            # Este arquivo
+└── Especificacoes.md    # Especificações detalhadas
+```
 
-            - Se selecionado a op 1, a planilha Yazo deverá obter dados da Plan (aba PALESTRA) nos seguintes critérios: Plan (Coluna) -> Yazo (Coluna)
-                - Nome (A) -> Nome do palestrante (N)
-                - Local (N) -> Local (B)
-                - Titulo (F) -> Titulo (E)
-                - Descritivo (G) -> Descrição (H)
-                - Data (K) -> Data (K)
-                - Hora de inicio (L) -> Hora de inicio (L)
-                - Hora de fim (M) -> Hora de fim (M)
+## 🎮 Como Usar
 
-            - Se selecionado a op 2, a planilha Yazo deverá obter dados da Plan (aba WORKSHOP) nos seguintes critérios: Plan (Coluna) -> Yazo (Coluna)
-                - Nome (A) -> Nome (N)
-                - Local (N) -> Local (B)
-                - Titulo (F) -> Titulo (E)
-                - Descritivo (G) -> Descrição (H)
-                - Data (K) -> Data (K)
-                - Hora de inicio (L) -> Hora de inicio (L)
-                - Hora de fim (M) -> Hora de fim (M)
+### 1. Preparação dos Arquivos
+- Coloque `Plan.xlsx` e `Yazo.xlsx` na mesma pasta do programa
+- Certifique-se que os arquivos não estão abertos no Excel
 
-            - Se selecionado a op 3, a planilha Yazo deverá obter dados da Plan (aba PAINEL) nos seguintes critérios: Plan (Coluna) -> Yazo (Coluna)
-                - Nome (A) -> Nome (N)
-                - Local (N) -> Local (B)
-                - Titulo (F) -> Titulo (E)
-                - Descritivo (G) -> Descrição (H)
-                - Data (K) -> Data (K)
-                - Hora de inicio (L) -> Hora de inicio (L)
-                - Hora de fim (M) -> Hora de fim (M)
+### 2. Execução
+- Execute `python Front.py`
+- A interface verificará automaticamente se os arquivos estão presentes
 
-            - Se selecionado a op 4 
-                - Fechar a aplicação
-            
-            - Se selecionado a op 5
-                - Apagar todas as celulas abaixo do cabeçalho da Planilha Yazo, aba Palestras2k25
+### 3. Transferência de Dados
 
-            
-            Detalhe importante:
-            Vamos supor que eu inicie a aplicação, escolha a opção 1 e a mesma registre 25 linhas abaixo do cabeçalho:
-                - Após confirmar o registro, o menu de interação deve voltar com as opções novamente, e se eu escolher a opção 2, por exemplo, ele deve fazer os novos registros abaixo dos 25 que foram registrados pela opção 1
-                - Fazer o mesmo para todas as opções
-                - Somente fechar a aplicação quando eu optar pela opção 4
-                - Se na mesma interação, eu selecionar 2x a mesma opção, alertar o usuario se deseja prosseguir e pedir confirmação
-                - Se selecionado a op 5, alertar o usuario se deseja prosseguir e pedir confirmação deixando evidente que os registros serão apagados.
+#### Para Palestras, Workshops ou Painéis:
+1. Clique no botão correspondente (🎤 Palestra, 🔧 Workshop, 👥 Painel)
+2. O sistema irá:
+   - Procurar linhas com fundo verde na coluna A da aba correspondente
+   - Extrair os dados mapeados
+   - Transferir para a aba "Palestras2k25" do Yazo.xlsx
+
+#### Para Apagar Dados:
+1. Clique em "🗑️ Apagar Dados"
+2. Confirme a operação (apaga todos os registros mantendo o cabeçalho)
+
+### 4. Monitoramento
+- Use a área de log para acompanhar as operações
+- O botão "🔄 Atualizar" verifica novamente o status dos arquivos
+
+## 📊 Mapeamento de Dados
+
+### Estrutura de Transferência
+| Plan.xlsx (Coluna) | Yazo.xlsx (Campo) | Descrição |
+|-------------------|-------------------|-----------|
+| A | Nome dos Palestrantes | Nome do palestrante |
+| N | Local | Local do evento |
+| F | Título* | Título da apresentação |
+| G | Descrição | Descrição detalhada |
+| K | Data (YYYY/MM/DD)* | Data do evento |
+| L | Horário de início | Hora de início |
+| M | Horário de término | Hora de término |
+
+### Critérios de Seleção
+- **Apenas linhas com fundo verde** na coluna A são processadas
+- Cor específica: RGB(0,255,0) / #00FF00
+- Linhas sem nome e título são ignoradas
+
+## 🔧 Configurações
+
+### Interface
+- Tamanho da janela: 1200x800 pixels
+- Tema: Clam (moderno)
+- Cores: Esquema azul/cinza profissional
+
+### Log
+- Timestamp automático em todas as mensagens
+- Scroll automático para última mensagem
+- Botão para limpar histórico
+
+## ⚠️ Observações Importantes
+
+### Segurança
+- Confirmação obrigatória para operações críticas
+- Aviso quando arquivos estão abertos no Excel
+- Rastreamento de opções já utilizadas na sessão
+
+### Compatibilidade
+- Testado com Excel 2016+
+- Requer arquivos .xlsx (não .xls)
+- Funciona apenas com Windows
+
+### Performance
+- Processamento em threads para não travar a interface
+- Verificação eficiente de cores de células
+- Log detalhado para debugging
+
+## 🐛 Solução de Problemas
+
+### Arquivo não encontrado
+- Verifique se `Plan.xlsx` e `Yazo.xlsx` estão na pasta correta
+- Use o botão "🔄 Atualizar" para verificar novamente
+
+### Erro de permissão
+- Feche os arquivos Excel antes de executar
+- Verifique se não há outros programas usando os arquivos
+
+### Nenhuma linha encontrada
+- Confirme que existem células com fundo verde na coluna A
+- Verifique se está na aba correta (PALESTRA, WORKSHOP, PAINEL)
+
+## 📝 Log de Alterações
+
+### Versão Atual
+- Interface gráfica moderna
+- Processamento em threads
+- Verificação automática de arquivos
+- Log detalhado de operações
+- Confirmações de segurança
+
+### Versões Anteriores
+- Versão console (transfer_data.py)
+- Processamento sequencial
+- Interface básica
+
+## 🤝 Contribuição
+
+Para contribuir com o projeto:
+1. Faça um fork do repositório
+2. Crie uma branch para sua feature
+3. Commit suas mudanças
+4. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto é de uso interno para gerenciamento de eventos.
+
+---
+
+**Desenvolvido para Hacktown 2025** 🚀
 
 
             
