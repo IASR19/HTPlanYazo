@@ -41,16 +41,44 @@ pip install -r requirements.txt
 python Front.py
 ```
 
+## 📦 Criando Executável
+
+### Método Automático (Recomendado)
+1. **Execute o script batch:**
+```bash
+criar_executavel.bat
+```
+
+### Método Manual
+1. **Execute o script Python:**
+```bash
+python build_exe.py
+```
+
+### Resultado
+- O executável será criado na pasta `PlanYazo_Executavel/`
+- Inclui: `PlanYazo.exe`, `Plan.xlsx`, `Yazo.xlsx` e `README_Executavel.txt`
+- Para usar: Dê duplo clique em `PlanYazo.exe`
+
 ## 📁 Estrutura de Arquivos
 
 ```
 HTPlanYazo/
-├── Front.py              # Interface gráfica principal
-├── requirements.txt      # Dependências do projeto
-├── Plan.xlsx            # Planilha fonte de dados
-├── Yazo.xlsx            # Planilha de destino
-├── README.md            # Este arquivo
-└── Especificacoes.md    # Especificações detalhadas
+├── Front.py                 # Interface gráfica principal
+├── requirements.txt         # Dependências do projeto
+├── build_exe.py            # Script para criar executável
+├── criar_executavel.bat    # Script batch para Windows
+├── PlanYazo.spec           # Configuração do PyInstaller
+├── Plan.xlsx               # Planilha fonte de dados
+├── Yazo.xlsx               # Planilha de destino
+├── README.md               # Este arquivo
+└── Especificacoes.md       # Especificações detalhadas
+
+PlanYazo_Executavel/        # Pasta gerada automaticamente
+├── PlanYazo.exe            # Executável da aplicação
+├── Plan.xlsx               # Planilha fonte (cópia)
+├── Yazo.xlsx               # Planilha destino (cópia)
+└── README_Executavel.txt   # Instruções de uso
 ```
 
 ## 🎮 Como Usar
