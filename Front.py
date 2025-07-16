@@ -12,7 +12,7 @@ class DataTransferApp:
     def __init__(self, root):
         self.root = root
         self.root.title("PlanYazo - Transferência de Dados")
-        self.root.geometry("1000x750")
+        self.root.geometry("1200x800")  # Aumentado ainda mais o tamanho da janela
         self.root.configure(bg='#f8f9fa')
         
         # Set app icon and style
@@ -31,51 +31,54 @@ class DataTransferApp:
         style.theme_use('clam')
         
         # Configure colors
-        style.configure('Title.TLabel', font=('Arial', 20, 'bold'), foreground='#2c3e50')
-        style.configure('Header.TLabel', font=('Arial', 14, 'bold'), foreground='#34495e')
-        style.configure('Info.TLabel', font=('Arial', 11), foreground='#7f8c8d')
+        style.configure('Title.TLabel', font=('Arial', 28, 'bold'), foreground='#2c3e50')
+        style.configure('Header.TLabel', font=('Arial', 18, 'bold'), foreground='#34495e')
+        style.configure('Info.TLabel', font=('Arial', 14), foreground='#7f8c8d')
         
         # Button styles
         style.configure('Primary.TButton', 
-                       font=('Arial', 12, 'bold'),
+                       font=('Arial', 14, 'bold'),
                        background='#3498db',
                        foreground='white')
         style.configure('Success.TButton',
-                       font=('Arial', 12, 'bold'),
+                       font=('Arial', 14, 'bold'),
                        background='#27ae60',
                        foreground='white')
         style.configure('Danger.TButton',
-                       font=('Arial', 12, 'bold'),
+                       font=('Arial', 14, 'bold'),
                        background='#e74c3c',
+                       foreground='white')
+        style.configure('Info.TButton',
+                       font=('Arial', 12),
+                       background='#95a5a6',
                        foreground='white')
         
     def create_widgets(self):
         """Create and arrange all GUI widgets"""
         # Main container with proper spacing
-        main_frame = ttk.Frame(self.root, padding="30")
+        main_frame = ttk.Frame(self.root, padding="30")  # Reduzido padding para caber melhor
         main_frame.grid(row=0, column=0, sticky="nsew")
         
         # Configure grid weights
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1)
         main_frame.columnconfigure(0, weight=1)
-        main_frame.rowconfigure(4, weight=1)  # Make log section expandable
+        main_frame.rowconfigure(3, weight=1)  # Make log section expandable
         
-        # Create sections in proper order
+        # Create sections in proper order with more spacing
         self.create_title_section(main_frame, 0)
         self.create_file_status_section(main_frame, 1)
         self.create_transfer_section(main_frame, 2)
         self.create_log_section(main_frame, 3)
-        self.create_status_bar(main_frame, 4)
         
     def create_title_section(self, parent, row):
         """Create title section with proper spacing"""
         title_frame = ttk.Frame(parent)
-        title_frame.grid(row=row, column=0, sticky="ew", pady=(0, 35))
+        title_frame.grid(row=row, column=0, sticky="ew", pady=(0, 20))  # Reduzido espaçamento
         title_frame.columnconfigure(0, weight=1)
         
         title_label = ttk.Label(title_frame, text="PlanYazo", style='Title.TLabel')
-        title_label.grid(row=0, column=0, pady=(0, 10))
+        title_label.grid(row=0, column=0, pady=(0, 10))  # Reduzido espaçamento
         
         subtitle_label = ttk.Label(title_frame, text="Sistema de Transferência de Dados", style='Info.TLabel')
         subtitle_label.grid(row=1, column=0)
@@ -84,91 +87,79 @@ class DataTransferApp:
         """Create file status display section with proper spacing"""
         # Section header
         header_label = ttk.Label(parent, text="Status dos Arquivos", style='Header.TLabel')
-        header_label.grid(row=row, column=0, sticky="w", pady=(0, 15))
+        header_label.grid(row=row, column=0, sticky="w", pady=(0, 15))  # Reduzido espaçamento
         
         # File status frame
         status_frame = ttk.Frame(parent)
-        status_frame.grid(row=row+1, column=0, sticky="ew", pady=(0, 30))
+        status_frame.grid(row=row+1, column=0, sticky="ew", pady=(0, 20))  # Reduzido espaçamento
         status_frame.columnconfigure(1, weight=1)
         
         # Plan.xlsx status
-        ttk.Label(status_frame, text="Plan.xlsx:", style='Info.TLabel').grid(row=0, column=0, sticky="w", padx=(0, 30))
+        ttk.Label(status_frame, text="Plan.xlsx:", style='Info.TLabel').grid(row=0, column=0, sticky="w", padx=(0, 20), pady=10)  # Reduzido espaçamento
         self.plan_status = ttk.Label(status_frame, text="Verificando...", style='Info.TLabel')
-        self.plan_status.grid(row=0, column=1, sticky="w")
+        self.plan_status.grid(row=0, column=1, sticky="w", pady=10)
         
         # Yazo.xlsx status
-        ttk.Label(status_frame, text="Yazo.xlsx:", style='Info.TLabel').grid(row=1, column=0, sticky="w", padx=(0, 30))
+        ttk.Label(status_frame, text="Yazo.xlsx:", style='Info.TLabel').grid(row=1, column=0, sticky="w", padx=(0, 20), pady=10)  # Reduzido espaçamento
         self.yazo_status = ttk.Label(status_frame, text="Verificando...", style='Info.TLabel')
-        self.yazo_status.grid(row=1, column=1, sticky="w")
+        self.yazo_status.grid(row=1, column=1, sticky="w", pady=10)
         
         # Refresh button
         refresh_btn = ttk.Button(status_frame, text="🔄 Atualizar", 
                                 command=self.check_files, style='Primary.TButton')
-        refresh_btn.grid(row=0, column=2, rowspan=2, padx=(50, 0))
+        refresh_btn.grid(row=0, column=2, rowspan=2, padx=(50, 0), pady=10)  # Reduzido espaçamento
         
     def create_transfer_section(self, parent, row):
         """Create transfer options section with proper spacing"""
         # Section header
-        header_label = ttk.Label(parent, text="Opções de Transferência", style='Header.TLabel')
-        header_label.grid(row=row, column=0, sticky="w", pady=(0, 15))
         
-        # Transfer buttons frame
+        # Transfer buttons frame - reorganizado para evitar cortes
         transfer_frame = ttk.Frame(parent)
-        transfer_frame.grid(row=row+1, column=0, sticky="ew", pady=(0, 30))
-        transfer_frame.columnconfigure(3, weight=1)  # Push clear button to the right
+        transfer_frame.grid(row=row+1, column=0, sticky="ew", pady=(0, 20))  # Reduzido espaçamento
+        transfer_frame.columnconfigure(4, weight=1)  # Push clear button to the right
         
-        # Transfer buttons with proper spacing
+        # Transfer buttons with much more spacing
         self.palestra_btn = ttk.Button(transfer_frame, text="🎤 Palestra", 
                                       command=lambda: self.transfer_data('1'), style='Primary.TButton')
-        self.palestra_btn.grid(row=0, column=0, padx=(0, 25), pady=15)
+        self.palestra_btn.grid(row=0, column=0, padx=(0, 20), pady=15)  # Reduzido espaçamento
         
         self.workshop_btn = ttk.Button(transfer_frame, text="🔧 Workshop", 
                                       command=lambda: self.transfer_data('2'), style='Primary.TButton')
-        self.workshop_btn.grid(row=0, column=1, padx=(0, 25), pady=15)
+        self.workshop_btn.grid(row=0, column=1, padx=(0, 20), pady=15)  # Reduzido espaçamento
         
         self.painel_btn = ttk.Button(transfer_frame, text="👥 Painel", 
                                     command=lambda: self.transfer_data('3'), style='Primary.TButton')
-        self.painel_btn.grid(row=0, column=2, padx=(0, 40), pady=15)
+        self.painel_btn.grid(row=0, column=2, padx=(0, 30), pady=15)  # Reduzido espaçamento
         
         # Clear data button
         self.clear_btn = ttk.Button(transfer_frame, text="🗑️ Apagar Dados", 
                                    command=self.clear_data, style='Danger.TButton')
-        self.clear_btn.grid(row=0, column=3, padx=(0, 0), pady=15, sticky="e")
+        self.clear_btn.grid(row=0, column=3, padx=(0, 0), pady=15, sticky="e")  # Reduzido espaçamento
         
     def create_log_section(self, parent, row):
         """Create log display section with proper spacing"""
         # Section header
-        header_label = ttk.Label(parent, text="Log de Atividades", style='Header.TLabel')
-        header_label.grid(row=row, column=0, sticky="w", pady=(0, 15))
-        
         # Log text area with scrollbar
         log_frame = ttk.Frame(parent)
-        log_frame.grid(row=row+1, column=0, sticky="nsew", pady=(0, 20))
+        log_frame.grid(row=row+1, column=0, sticky="nsew", pady=(0, 10))  # Reduzido espaçamento
         log_frame.columnconfigure(0, weight=1)
         log_frame.rowconfigure(0, weight=1)
         
         # Text widget with scrollbar
-        self.log_text = tk.Text(log_frame, height=18, wrap=tk.WORD, 
-                               font=('Consolas', 10), bg='#2c3e50', fg='#ecf0f1')
+        self.log_text = tk.Text(log_frame, height=15, wrap=tk.WORD,  # Reduzido altura para caber melhor
+                               font=('Consolas', 11), bg='#2c3e50', fg='#ecf0f1')  # Reduzido fonte
         scrollbar = ttk.Scrollbar(log_frame, orient=tk.VERTICAL, command=self.log_text.yview)
         self.log_text.configure(yscrollcommand=scrollbar.set)
         
-        self.log_text.grid(row=0, column=0, sticky="nsew")
+        self.log_text.grid(row=0, column=0, sticky="nsew", padx=(0, 10))  # Reduzido espaçamento
         scrollbar.grid(row=0, column=1, sticky="ns")
         
         # Clear log button
         clear_log_btn = ttk.Button(log_frame, text="Limpar Log", 
                                   command=self.clear_log, style='Info.TButton')
-        clear_log_btn.grid(row=1, column=0, pady=(10, 0), sticky="w")
+        clear_log_btn.grid(row=1, column=0, pady=(10, 0), sticky="w")  # Reduzido espaçamento
         
-    def create_status_bar(self, parent, row):
-        """Create status bar"""
-        self.status_var = tk.StringVar()
-        self.status_var.set("Pronto")
-        
-        status_bar = ttk.Label(parent, textvariable=self.status_var, 
-                              relief=tk.SUNKEN, anchor=tk.W, style='Info.TLabel')
-        status_bar.grid(row=row, column=0, sticky="ew", pady=(15, 0))
+
         
     def check_files(self):
         """Check if required files exist and update status"""
@@ -202,10 +193,7 @@ class DataTransferApp:
         """Clear the log text area"""
         self.log_text.delete(1.0, tk.END)
         
-    def update_status(self, message):
-        """Update status bar message"""
-        self.status_var.set(message)
-        self.root.update_idletasks()
+
         
     def transfer_data(self, tipo_evento):
         """Transfer data in a separate thread to avoid GUI freezing"""
@@ -217,7 +205,6 @@ class DataTransferApp:
                 
         # Disable buttons during transfer
         self.disable_buttons()
-        self.update_status("Transferindo dados...")
         
         # Run transfer in separate thread
         thread = threading.Thread(target=self._transfer_data_thread, args=(tipo_evento,))
@@ -227,6 +214,7 @@ class DataTransferApp:
     def _transfer_data_thread(self, tipo_evento):
         """Thread function for data transfer"""
         try:
+            # Mapeamento de tipos de evento para nomes de abas
             mapeamento_abas = {
                 '1': 'PALESTRA',
                 '2': 'WORKSHOP', 
@@ -262,7 +250,6 @@ class DataTransferApp:
             self.root.after(0, lambda: messagebox.showerror("Erro", f"Erro: {str(e)}"))
         finally:
             self.root.after(0, self.enable_buttons)
-            self.root.after(0, lambda: self.update_status("Pronto"))
             
     def clear_data(self):
         """Clear data with confirmation"""
@@ -276,7 +263,6 @@ class DataTransferApp:
                                    "ATENÇÃO: Esta ação irá APAGAR TODOS os registros da aba Palestras2k25. Deseja prosseguir?")
         if result:
             self.disable_buttons()
-            self.update_status("Apagando dados...")
             
             thread = threading.Thread(target=self._clear_data_thread)
             thread.daemon = True
@@ -297,7 +283,6 @@ class DataTransferApp:
             self.root.after(0, lambda: messagebox.showerror("Erro", f"Erro: {str(e)}"))
         finally:
             self.root.after(0, self.enable_buttons)
-            self.root.after(0, lambda: self.update_status("Pronto"))
             
     def disable_buttons(self):
         """Disable all buttons during operations"""
@@ -313,7 +298,10 @@ class DataTransferApp:
         self.painel_btn.config(state='normal')
         self.clear_btn.config(state='normal')
 
-    # Original functions from the console version
+    # ============================================================================
+    # FUNÇÕES DE PROCESSAMENTO DE DADOS DO EXCEL
+    # ============================================================================
+    
     def verificar_celula_verde(self, cell):
         # Check if cell has the specific green background (RGB 0,255,0 / #00FF00)
         if cell.fill.start_color.rgb:
@@ -556,6 +544,10 @@ class DataTransferApp:
         yazo_wb.save('Yazo.xlsx')
         self.log_message(f'Todos os dados da aba "{target_sheet}" foram apagados (mantendo apenas o cabeçalho).')
         return True
+
+# ============================================================================
+# FUNÇÃO PRINCIPAL E INICIALIZAÇÃO
+# ============================================================================
 
 def main():
     root = tk.Tk()
